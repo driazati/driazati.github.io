@@ -1,0 +1,27 @@
+{
+  "name": "stocksite",
+  "version": "1.0.0",
+  "description": "",
+  "main": "script.js",
+  "scripts": {
+    "start": "./node_modules/.bin/webpack-dev-server"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "babel": "^6.23.0",
+    "babel-core": "^6.24.0",
+    "babel-loader": "latest",
+    "babel-preset-latest": "^6.24.0",
+    "babel-preset-react": "latest",
+    "babel-preset-stage-0": "latest",
+    "webpack": "latest",
+    "webpack-dev-server": "latest",
+    "react": "^15.4.2",
+    "react-dom": "^15.4.2"
+  },
+  "dependencies": {
+    "react": "^15.4.2",
+    "react-dom": "^15.4.2"
+  }
+}

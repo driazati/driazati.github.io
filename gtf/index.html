@@ -1,0 +1,141 @@
+<!-- <!doctype html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="x-ua-compatible" content="ie=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<title>Guess that function</title>
+	<script type="text/javascript" charset="UTF-8"
+	 src="//cdnjs.cloudflare.com/ajax/libs/jsxgraph/0.99.7/jsxgraphcore.js"></script>
+	<link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/jsxgraph/0.99.7/jsxgraph.css" />
+	<link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+	<div id="graph"></div>
+	<script src="main.js"></script>
+</body>
+
+</html> -->
+<!doctype html>
+<html lang="en">
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="x-ua-compatible" content="ie=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<title>Guess that function</title>
+
+	<script type="text/javascript" charset="UTF-8"
+	 src="//cdnjs.cloudflare.com/ajax/libs/jsxgraph/0.99.7/jsxgraphcore.js"></script>
+
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/5.1.2/math.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/2.2.0/anime.min.js"></script>
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/mathquill/0.10.1/mathquill.min.js"></script>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/mathquill/0.10.1/mathquill.min.css">
+
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+	<link rel="icon" href="favicon.png">
+	<link rel="stylesheet" type="text/css" href="styles.css" />
+	<link rel="stylesheet" type="text/css" href="header.css" />
+</head>
+<body>
+	<div class="row banner">
+		<h1>Guess that function</h1>
+	</div>
+	<div id="namediv" class="vertical-center" style="text-align: center; margin-top: 70px; display: block">
+		<label style="display: block" for="name">Name</label>
+		<p>(Score is not saved until name is chosen)</p>
+		<input class="form-control" style="display: block; margin: auto; width: 300px" type="text" id="name" name="name">
+		<button class="btn btn-info" onclick="submitName()" style="margin: 10px">Submit</button>
+	</div>
+	<div  class="container padded" id="content" style="margin: auto">
+		<div class="row" style="left: 0; right: 0; width: 100%">
+			<div class="col-md-8 order-first" style="max-width: 800px;">
+				<div class="row">
+					<div id="graph" style="max-width: 800px; height: 500px; overflow: hidden;"></div>
+					<div id="right" class="result green_grad">	
+						<span>Nice</span>
+					</div>
+					<div id="wrong" class="result red_grad">
+						<span>Wrong</span>
+					</div>
+					<div id="bad_function" class="result yellow_grad" style="padding: 0">
+						<span style="width: 150px; font-size: 0.5em">Not a function</span>
+					</div>
+				</div>
+				<div class="row padded">
+						<span class="math-prompt" id="y=">y = </span><span class="math-prompt" style="min-width: 60%; max-width: 500px" id="guess" type="text" name="guess"></span>
+						<!-- <button style="width: 100px; height: 100px; font-family: 'CoreCircus', sans-serif;" class="btn btn-primary" onclick="submit_guess()">Submit</button> -->
+					<!-- </div> -->
+				</div>
+				<div class="row">
+					<button style="width: 100%; height: 60px; font-family: 'CoreCircus', sans-serif;" class="btn btn-primary" onclick="submit_guess()">Submit</button>
+				</div>
+				<div class="row" style="margin-top: 10px">
+					<button id='skip' style="width: 100%; height: 60px; font-family: 'CoreCircus', sans-serif;" class="btn btn-info" onclick="game_round()">Skip this one</button>
+				</div>
+				<div class="row" style="margin-top: 10px">
+					<button id='modebtn' style="width: 100%; height: 60px; font-family: 'CoreCircus', sans-serif;" class="btn btn-warning" onclick="toggle_mode()">Hard Mode</button>
+				</div>
+				<div class="row" style="margin-top: 10px">
+					<h3 style="text-align: center">Settings</h3>
+					<label for="coeff_slider">Maximum coefficient: <span id="max_coeff"></span></label>
+					<input onchange="setParams()" min="1" max="30" value="10" type="range" id="coeff_slider" name="coeff_slider">
+					<label for="deg_slider">Maximum degree: <span id="max_deg"></span></label>
+					<input onchange="setParams()" min="0" max="10" value="3" type="range" id="deg_slider" name="deg_slider">
+
+				</div>
+			</div>
+			<div class="col-md-4 order-last">
+				<div class="row">
+					<h2 style="text-align: center">Leaderboard</h2>
+					<table class="table" id="scoretable">
+						<thead>
+						<tr>
+							<th>Name</th>
+							<th>Score</th>
+						</tr>
+						</thead>
+						<tbody id="tbody"></tbody>
+					</table>
+				</div>
+				<div class="row">
+					<h2 style="text-align: center">Instructions</h2>
+					<p>Guess what the function is</p>
+				</div>
+			</div>
+		</div>
+	</div>
+	<input id="guess_value" hidden>
+	<script src="score.js"></script>
+	<script src="main.js"></script>
+	<script>
+		var MQ = MathQuill.getInterface(2);
+		var problemSpan = document.getElementById('y=');
+		MQ.StaticMath(problemSpan);
+		var answerSpan = document.getElementById('guess');
+		let output = document.getElementById('guess_value');
+		var answerMath = MQ.MathField(answerSpan, {
+			handlers: {
+				edit: () => {
+					output.value = answerMath.latex();
+				},
+				enter: () => {
+					// submit
+					submit_guess();
+				}
+			}
+		});
+		function clear_math_field() {
+			answerMath.keystroke('End Shift-Home Del');
+		}
+	</script>
+</body>
+</html>

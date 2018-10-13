@@ -1,0 +1,96 @@
+h1 {
+	text-align: center;
+}
+
+#graph {
+	cursor: -webkit-grab;
+	cursor: -moz-grab;
+	cursor:grab;
+}
+
+.math-prompt {
+	font-size: 4vw;
+	/*font-size: 6em;*/
+}
+
+@media screen and (max-width: 400px) {
+	.math-prompt {
+		font-size: 3em;
+	}	
+}
+
+.vertical-center {
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.row {
+	margin: 0;
+}
+
+.result {
+	width: 300px;
+	height: 100px;
+	text-align: center;
+	font-weight: 600;
+	font-size: 4em;
+	padding-top: 5px;
+	color: white;
+	border: 4px solid black;
+	border-radius: 20px;
+	position: absolute;
+	opacity: 0;
+}
+
+.result span {
+	text-shadow:
+		-1px -1px 0 #000,  
+		1px -1px 0 #000,
+		-1px 1px 0 #000,
+		1px 1px 0 #000;
+}
+
+.padded {
+	padding: 3px;
+	margin: 0;
+}
+
+@media screen and (min-width: 30em) {
+	.padded {
+		padding: 30px;
+	}	
+}
+
+
+.green_grad {
+	background: #6dce44;
+	background: -moz-linear-gradient(top, #6dce44 0%, #7ee542 100%);
+	background: -webkit-linear-gradient(top, #6dce44 0%,#7ee542 100%);
+	background: linear-gradient(to bottom, #6dce44 0%,#7ee542 100%);
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#6dce44', endColorstr='#7ee542',GradientType=0 );
+}
+
+.red_grad {
+	background: #ff3019;
+	background: -moz-linear-gradient(top, #ff3019 0%, #a80303 100%);
+	background: -webkit-linear-gradient(top, #ff3019 0%,#a80303 100%);
+	background: linear-gradient(to bottom, #ff3019 0%,#a80303 100%);
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ff3019', endColorstr='#a80303',GradientType=0 );
+}
+
+.yellow_grad {
+	background: #938c4c;
+	background: -moz-linear-gradient(-45deg, #938c4c 0%, #ceb733 0%, #f4e138 100%);
+	background: -webkit-linear-gradient(-45deg, #938c4c 0%,#ceb733 0%,#f4e138 100%);
+	background: linear-gradient(135deg, #938c4c 0%,#ceb733 0%,#f4e138 100%);
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#938c4c', endColorstr='#f4e138',GradientType=1 );
+}
+
+.banner {
+	background-color: #3a3a3a;
+	padding-bottom: 20px;
+	padding-top: 10px;
+	color: white;
+	border-bottom: 3px solid #0e0e0e;
+}

@@ -1,0 +1,127 @@
+body {
+	background-color: #569189;
+	text-align: center;
+	font-family: "Helvetica", "Arial", sans-serif;
+	color: #EEEEEE;
+	/*word-wrap: break-word;*/
+}
+
+* {
+	margin: 0;
+	padding: 0;
+}
+
+#clear {
+	float: right;
+	color: red;
+	font-weight: bold;
+	cursor: pointer;
+}
+
+.wrapper {
+	display: flex;
+	flex-flow: row wrap;
+}
+
+header {
+	font-size: 2em;
+	padding: 0;
+	margin: 10px 0 10px 0;
+}
+
+header > h1 {
+	margin: 0;
+}
+
+header, main, nav, aside, footer {
+	flex: 1 100%;
+}
+
+aside {
+	/*flex: 0 0 auto;*/
+}
+
+#displaycontainer {
+	color: black;
+	word-wrap: break-word;
+}
+
+.content {
+	/*flex: 1 1 auto;*/
+}
+
+#left {
+	order: 2;
+}
+main {
+	order: 1;
+}
+#right {
+	order: 3;
+}
+footer  { order: 4; }
+
+/* Medium screens */
+@media all and (min-width: 600px) {
+  /* We tell both sidebars to share a row */
+  aside {
+  	flex: 1 auto;
+  }
+
+  #left { order: 2; }
+  main { order: 1; }
+  #right { order: 3; }
+  footer  { order: 4; }
+}
+
+/* Large screens */
+@media all and (min-width: 800px) {
+  /* We invert order of first sidebar and main
+   * And tell the main element to take twice as much width as the other two sidebars 
+   */
+  main { flex: 2 0px; }
+  
+  #left { order: 1; }
+  main { order: 2; }
+  #right { order: 3; }
+  footer { order: 4; }
+}
+
+button {
+	width: 200px;
+	height: 200px;
+	color: white;
+	background-color: blue;
+	border: 2px solid black;
+}
+
+button:active {
+	width: 200px;
+	height: 200px;
+	color: white;
+	background-color: orange;
+	border: 2px solid black;
+}
+
+#displaycontainer {
+	padding: 20px;
+	background: #F3FF96;
+}
+
+.morselist {
+	text-align: left;
+	cursor: pointer;
+	font-family: "Lucida Console", Monaco, monospace;
+	margin: 5px;
+	/*background-color: #19151C;*/
+	background-color: #00D9FF;
+	border-radius: 7px;
+	color: #19151C;
+	padding: 15px;
+}
+
+.morselist > li {
+	display: block;
+	width: 100px;
+	margin-right: 0;
+}

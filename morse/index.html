@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Morse Code Typer</title>
+        <link href="style.css" rel="stylesheet" type="text/css">
+        <script src="script.js"></script>
+    </head>
+    <body>
+        <div class="wrapper">
+            <header>
+                <h1>Morse Typer</h1>
+            </header>
+            <aside id="left">
+                <ol class="morselist">
+                    <li>
+                        <span><span class="letter">A</span>: .-</span>
+                    </li>
+                    <li>
+                        <span><span class="letter">B</span>: -...</span>
+                    </li>
+                    <li>
+                        <span><span class="letter">C</span>: -.-.</span>
+                    </li>
+                    <li>
+                        <span><span class="letter">D</span>: -..</span>
+                    </li>
+                    <li>
+                        <span><span class="letter">E</span>: .</span>
+                    </li>
+                    <li>
+                        <span><span class="letter">F</span>: ..-.</span>
+                    </li>
+                    <li>
+                        <span><span class="letter">G</span>: --.</span>
+                    </li>
+                    <li>
+                        <span><span class="letter">H</span>: ....</span>
+                    </li>
+                    <li>
+                        <span><span class="letter">I</span>: ..</span>
+                    </li>
+                    <li>
+                        <span><span class="letter">J</span>: .---</span>
+                    </li>
+                    <li>
+                        <span><span class="letter">K</span>: -.-</span>
+                    </li>
+                    <li>
+                        <span><span class="letter">L</span>: .-..</span>
+                    </li>
+                    <li>
+                        <span><span class="letter">M</span>: --</span>
+                    </li>
+                    <li>
+                        <span><span class="letter">N</span>: -.</span>
+                    </li>
+                    <li>
+                        <span><span class="letter">O</span>: ---</span>
+                    </li>
+                    <li>
+                        <span><span class="letter">P</span>: .--.</span>
+                    </li>
+                    <li>
+                        <span><span class="letter">Q</span>: --.-</span>
+                    </li>
+                    <li>
+                        <span><span class="letter">R</span>: .-.</span>
+                    </li>
+                </ol>
+            </aside>
+            <main class="content">
+                <button id="morsebutton">Click</button>
+                <div>
+                    <span>Frequency: <span id="frequency-display"></span> Hz</span>
+                    <input id="frequency-slider" type="range">
+                </div>
+                <div>
+                    <span>Dot length: <span id="dotlength-display"></span> ms</span>
+                    <input id="dotlength-slider" type="range">
+                </div>
+                <div id="displaycontainer">
+                    <span id="display"></span>
+                    <span id="clear">X</span>
+                </div>
+            </main>
+            <aside id="right">
+                <ol class="morselist">
+                    <li>
+                        <span><span class="letter">S</span>: ...</span>
+                    </li>
+                    <li>
+                        <span><span class="letter">T</span>: -</span>
+                    </li>
+                    <li>
+                        <span><span class="letter">U</span>: ..-</span>
+                    </li>
+                    <li>
+                        <span><span class="letter">V</span>: ...-</span>
+                    </li>
+                    <li>
+                        <span><span class="letter">W</span>: .--</span>
+                    </li>
+                    <li>
+                        <span><span class="letter">X</span>: -..-</span>
+                    </li>
+                    <li>
+                        <span><span class="letter">Y</span>: -.--</span>
+                    </li>
+                    <li>
+                        <span><span class="letter">Z</span>: --..</span>
+                    </li>
+                    <li>
+                        <span><span class="letter">0</span>: -----</span>
+                    </li>
+                    <li>
+                        <span><span class="letter">1</span>: .----</span>
+                    </li>
+                    <li>
+                        <span><span class="letter">2</span>: ..---</span>
+                    </li>
+                    <li>
+                        <span><span class="letter">3</span>: ...--</span>
+                    </li>
+                    <li>
+                        <span><span class="letter">4</span>: ....-</span>
+                    </li>
+                    <li>
+                        <span><span class="letter">5</span>: .....</span>
+                    </li>
+                    <li>
+                        <span><span class="letter">6</span>: -....</span>
+                    </li>
+                    <li>
+                        <span><span class="letter">7</span>: --...</span>
+                    </li>
+                    <li>
+                        <span><span class="letter">8</span>: ---..</span>
+                    </li>
+                    <li>
+                        <span><span class="letter">9</span>: ----.</span>
+                    </li>
+                </ol>
+            </aside>
+            <footer>
+                <p>Click a letter to hear how it's supposed to sound</p>
+                <p>A dot is 1 unit (default 50 ms)</p>
+                <p>A dash is 3 dots</p>
+                <p>A pause of 1 dot separates a letter</p>
+                <p>A pause of 3 dots separates a word</p>
+                <p>A ?? means not a letter</p>
+                <p>Click X or press backspace to clear</p>
+            </footer>
+        </div>
+    </body>
+</html>

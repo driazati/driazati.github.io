@@ -1,0 +1,45 @@
+body {
+	text-align: center;
+}
+
+header {
+	height: 100px;
+	width: 100%;
+	background-color: green;
+	color: white;
+	padding: 10px;
+}
+
+nav {
+	width: 100%;
+	padding: 10px 0 10px 0;
+	background-color: red;
+	color: purple;
+}
+
+nav a:not(:last-child) {
+	margin-right: 10%;
+}
+
+nav a {
+	padding: 1px 5px 1px 5px;
+	background-color: orange;
+}
+
+main {
+	display: flex;
+}
+
+#left-container {
+	width: 50%;
+	background-color: purple;
+}
+
+#left-container img {
+	padding: 30px 0 30px 0;
+}
+
+#right-container {
+	width: 50%;
+	background-color: cornflowerblue;
+}
