@@ -9,19 +9,22 @@
 
     <link rel="stylesheet" href="header.css" />
     <link rel="icon" href="favicon.ico" />
+    <link rel="stylesheet" href="https://code.divshot.com/geo-bootstrap/swatch/bootstrap.min.css">
     <style>
       .container {
         display: flex;
         flex-wrap: wrap;
+        width: 100%;
       }
 
       .container div {
         margin: 10px;
+        width: 100%;
       }
 
       iframe {
-        height: 500px;
-        width: 900px;
+        height: 600px;
+        width: 100%;
         resize: both;
         overflow: auto;
         
@@ -32,9 +35,9 @@
       body {
         font-family: Arial, Helvetica, sans-serif;
         background-color: #EFEFEF;
+        margin: 10px;
       }
     </style>
-    <link rel="stylesheet" href="https://code.divshot.com/geo-bootstrap/swatch/bootstrap.min.css">
   </head>
 
 
@@ -43,7 +46,7 @@
     <div class='container'>
       <div>
         <h2>GitHub</h2>
-        <iframe src="https://github.com/pytorch/pytorch/issues"></iframe>
+        <iframe src="https://github.com/pytorch/pytorch/issues?q=is%3Aissue+is%3Aopen+sort%3Aupdated-desc+label%3Ajit"></iframe>
       </div>
       <div>
         <h2>TorchScript</h2>
