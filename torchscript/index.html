@@ -1,0 +1,33 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+
+	<title>TorchScript Benchmarks</title>
+
+
+	<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/dygraph/2.1.0/dygraph.js"></script> -->
+	<!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dygraph/2.1.0/dygraph.css"> -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/c3/0.7.8/c3.css">
+	<link rel="stylesheet" href="styles.css">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/5.12.0/d3.js" charset="utf-8"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/c3/0.7.8/c3.js"></script>
+</head>
+
+<body>
+	<h1>TorchScript Benchmarks</h1>
+	<div id='charts'></div>
+	<script src="script.js"></script>
+	<h2>Reproducing</h2>
+	<p>These results are created via this <a href="google.com">benchmark script</a> and run nightly on the latest commit of PyTorch with this <a href="google.com">runner</a>. The CSV results are pushed to <a href="github.com/driazati/driazati.github.io/">this GitHub repo</a>.
+	<h3>Bisecting a Performance Regression</h3>
+	<p>Use the <a href="google.com">benchmark script</a>.</p>
+	<h3>Adding a New Benchmark</h3>
+	<ol>
+		<li>Add your test to the <a href="google.com">benchmark script</a>. See the README for details.</li>
+		<li>Run the <a href="google.com">benchmark runner</a>.</li>
+		<li>Add the name of the test to to script.js.</li>
+	</ol>
+</body>
+</html>

@@ -1,0 +1,17 @@
+.dygraph-legend {
+	left: 450px !important;
+}
+
+h1 {
+	text-align: center;
+}
+
+body {
+	padding: 10px;
+	background-color: #FEFEFE;
+	font-family: Arial;
+}
+
+.c3-tooltip-container {
+    pointer-events: auto !important;
+}
