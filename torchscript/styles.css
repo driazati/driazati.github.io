@@ -15,3 +15,18 @@ body {
 .c3-tooltip-container {
     pointer-events: auto !important;
 }
+
+
+.tooltip-table { 
+	background-color: rgba(200, 200, 200, 0.3);
+    font-size: .7em;
+    /*padding: 3px;*/
+}
+
+.tooltip-table tr:nth-child(even) {
+	background-color: rgba(170, 170, 170, 0.3);
+}
+
+.tooltip-table td {
+	padding: 3px;
+}
