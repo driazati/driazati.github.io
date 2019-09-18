@@ -1,0 +1,2 @@
+time,git_hash,Eager Runtime (ms),Compilation Time (ms),Script Runtime (ms),10th Script Runtime (ms)
+2019-09-18 17:16:27,193a6a6f98ecdc73985dce77837e371c7bc7ef99,677.01441,3050.319378,5283.385102,647.2906380000001
