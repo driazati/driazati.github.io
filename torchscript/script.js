@@ -1,4 +1,18 @@
-make_chart('resnet50');
+make_chart({
+	name: 'resnet50',
+	rollup: (column_name, d) => d3.mean(d, x => x[column_name]),
+
+	xlabel: 'Commit Time',
+	ylabel: 'Milliseconds',
+	title: 'Resnet50 (mean of 10 runs)'
+});
+make_chart({
+	name: 'resnet50',
+	rollup: (column_name, d) => d3.variance(d, x => x[column_name]),
+	xlabel: 'Commit Time',
+	ylabel: 'Milliseconds',
+	title: 'Resnet50 (variance of 10 runs)'
+});
 // make_chart('resnet50');
 // make_chart('densenet181');
 
@@ -7,8 +21,9 @@ const old_hider = c3.chart.internal.fn.hideTooltip;
 c3.chart.internal.fn.hideTooltip = function () { };
 
 
-function make_chart(name) {
-	d3.csv(name + ".csv").then(csv => {
+let chart_count = 0;
+function make_chart(options) {
+	d3.csv(options.name + ".csv").then(csv => {
 		ignore_columns = {
 			'git_hash': true,
 			'benchmark_time': true,
@@ -37,7 +52,8 @@ function make_chart(name) {
 			})
 			.entries(csv)
 		x_data = x_data.map(d => d.value);
-		let x_column = ["commit_time"].concat(x_data)
+		let x_column = ["commit_time"].concat(x_data);
+		let data = d3.nest().key(d => d['git_hash']).entries(csv);
 
 		// Get the mean of each column
 		for (let i = 0; i < column_names.length; i++) {
@@ -46,7 +62,7 @@ function make_chart(name) {
 			let data = d3.nest()
 				.key(d => d['git_hash'])
 				.rollup(d => {
-					return d3.mean(d, x => x[name]);
+					return options.rollup(name, d);
 				})
 				.entries(csv)
 			for (let j = 0; j < data.length; j++) {
@@ -57,7 +73,8 @@ function make_chart(name) {
 		columns.push(x_column);
 
 		const div = document.createElement('div');
-		div.id = name + '_chart';
+		div.id = name + '_chart' + chart_count;
+		chart_count++;
 		document.getElementById('charts').appendChild(div);
 
 		var chart = c3.generate({
@@ -72,37 +89,39 @@ function make_chart(name) {
 					type: 'timeseries',
 					tick: {
 						format: '%m-%d'
-					}
+					},
+					label: options.xlabel
+				},
+				y: {
+					label: options.ylabel
 				}
 			},
 			zoom: {
 				enabled: true,
-				// type: 'drag'
+				// type: 'drag',
+				rescale: true
 			},
 			title: {
-				text: name
+				text: options.title
 			},
 			tooltip: {
 				contents: (d, defaultTitleFormat, defaultValueFormat, color) => {
-					let item_obj = csv[d[0].index];
-					let items = [];
-					for (let key in item_obj) {
-						if (key == 'git_hash') {
-							items.push({
-								"key": 'Git Hash',
-								"value": item_obj[key].substr(0, 10)
-							});
-							continue;
+					let datum = data[d[0].index];
+					let items = [
+						{
+							key: "Git Hash",
+							value: datum.key.substr(0, 10)
 						}
-						if (ignore_columns[key]) {
-							continue;
-						}
-						let value = +item_obj[key];
+					];
+					let keys = Object.keys(datum.values[0])
+						.filter(d => !(d in ignore_columns));
+					keys.forEach(key => {
+						let value = options.rollup(key, datum.values);
 						items.push({
-							"key": key,
-							"value": +value.toFixed(2)
+							key: key,
+							value: +value.toFixed(2)
 						})
-					}
+					});
 					const tooltip = document.createElement('div');
 					const table = d3.select(tooltip).append('table')
 						.classed('tooltip-table', true);
