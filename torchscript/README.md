@@ -1,11 +1,18 @@
-# TorchScript Benchmakrks
+# TorchScript Benchmarks
 
-Neat!
+## Resnet50
 
-## Ok
+<div id='resnet50_mean'></div>
+<div id='resnet50_var'></div>
 
-some text!
+# Reproducing Results
 
-## Alright
+# Adding a Benchmark
 
-More text!
+## Generate Results
+
+1. Write your benchmark test in 
+
+## Display Results
+
+1. 

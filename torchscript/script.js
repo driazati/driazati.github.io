@@ -1,13 +1,14 @@
 make_chart({
 	name: 'resnet50',
 	rollup: (column_name, d) => d3.mean(d, x => x[column_name]),
-
+	id: 'resnet50_mean',
 	xlabel: 'Commit Time',
 	ylabel: 'Milliseconds',
 	title: 'Resnet50 (mean of 10 runs)'
 });
 make_chart({
 	name: 'resnet50',
+	id: 'resnet50_var',
 	rollup: (column_name, d) => d3.variance(d, x => x[column_name]),
 	xlabel: 'Commit Time',
 	ylabel: 'Milliseconds',
@@ -21,9 +22,8 @@ const old_hider = c3.chart.internal.fn.hideTooltip;
 c3.chart.internal.fn.hideTooltip = function () { };
 
 
-let chart_count = 0;
 function make_chart(options) {
-	d3.csv(options.name + ".csv").then(csv => {
+	d3.csv('data/' + options.name + ".csv").then(csv => {
 		ignore_columns = {
 			'git_hash': true,
 			'benchmark_time': true,
@@ -72,13 +72,8 @@ function make_chart(options) {
 
 		columns.push(x_column);
 
-		const div = document.createElement('div');
-		div.id = name + '_chart' + chart_count;
-		chart_count++;
-		document.getElementById('charts').appendChild(div);
-
 		var chart = c3.generate({
-			bindto: '#' + div.id,
+			bindto: '#' + options.id,
 			data: {
 				x: 'commit_time',
 				xFormat: '%Y-%m-%d %H:%M:%S',

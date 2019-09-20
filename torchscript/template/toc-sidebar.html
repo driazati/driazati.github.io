@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html$if(lang)$ lang="$lang$"$endif$$if(dir)$ dir="$dir$"$endif$>
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -7,8 +7,17 @@
     
     <meta name="generator" content="pandoc">
     <meta name="description" content="">
+$for(author-meta)$
+    <meta name="author" content="$author-meta$">
+$endfor$
+$if(date-meta)$
+    <meta name="dcterms.date" content="$date-meta$">
+$endif$
+$if(keywords)$
+    <meta name="keywords" content="$for(keywords)$$keywords$$sep$, $endfor$">
+$endif$
 
-    <title>README</title>
+    <title>$if(title-prefix)$$title-prefix$ – $endif$$pagetitle$</title>
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
 
@@ -23,52 +32,48 @@
     <!-- Custom styles for this template -->
     <link href="https://mushiyo.github.io/pandoc-toc-sidebar/css/dashboard.css" rel="stylesheet">
     <style type="text/css">code{white-space: pre;}</style>
+$if(toc)$
     <style type="text/css">.sidebar ul{padding-left: 10px;}</style>
+$endif$
+$if(quotes)$
+    <style type="text/css">q { quotes: "“" "”" "‘" "’"; }</style>
+$endif$
+$if(highlighting-css)$
+    <style type="text/css">
+$highlighting-css$
+    </style>
+$endif$
+$for(css)$
+    <link rel="stylesheet" href="$css$" $if(html5)$$else$type="text/css" $endif$/>
+$endfor$
+$if(math)$
+  $math$
+$endif$
+$for(header-includes)$
+  $header-includes$
+$endfor$
   </head>
 
   <body>
-    <nav class="navbar navbar-inverse navbar-fixed-top">
-      <div class="container-fluid">
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand" href="#">TorchScript Benchmarks</a>
-        </div>
-        <div id="navbar" class="navbar-collapse collapse">
-          <ul class="nav navbar-nav">
-          </ul>
-        </div>
-      </div>
-    </nav>
+$for(include-before)$
+    $include-before$
+$endfor$
 
     <div class="container-fluid">
       <div class="row">
+$if(toc)$
         <div id="sidebar" class="col-sm-3 col-md-2 sidebar">
           <!--<ul class="nav nav-sidebar">
             <li class="active"><a href="#">Overview <span class="sr-only">(current)</span></a></li>
           </ul>-->
-          <ul>
-          <li><a href="#torchscript-benchmarks">TorchScript Benchmarks</a><ul>
-          <li><a href="#resnet50">Resnet50</a></li>
-          </ul></li>
-          <li><a href="#reproducing-results">Reproducing Results</a></li>
-          </ul>
+          $toc$
         </div>
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+$else$
+        <div class="col-sm-12 main">
+$endif$
         
-<h1 id="torchscript-benchmarks">TorchScript Benchmarks</h1>
-<h2 id="resnet50">Resnet50</h2>
-<div id="resnet50_mean">
-
-</div>
-<div id="resnet50_var">
-
-</div>
-<h1 id="reproducing-results">Reproducing Results</h1>
+$body$
         </div>
       </div>
     </div>
@@ -94,6 +99,9 @@
             tables[i].className += "table table-bordered table-hover";
         }
     </script>
+$for(include-after)$
+  $include-after$
+$endfor$
     <script src="script.js"></script>
   </body>
 </html>
