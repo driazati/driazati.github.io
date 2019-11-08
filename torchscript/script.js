@@ -1,21 +1,22 @@
 make_chart({
-	name: 'resnet50',
-	rollup: (column_name, d) => d3.mean(d, x => x[column_name]),
-	id: 'resnet50_mean',
+	name: 'basic',
+	data_file: 'data/resnet50.json',
+	rollup: d3.mean,
+	id: 'basic',
 	xlabel: 'Commit Time',
 	ylabel: 'Milliseconds',
-	title: 'Resnet50 (mean of 10 runs)'
+	title: 'Basic'
 });
-make_chart({
-	name: 'resnet50',
-	id: 'resnet50_var',
-	rollup: (column_name, d) => d3.variance(d, x => x[column_name]),
-	xlabel: 'Commit Time',
-	ylabel: 'Milliseconds',
-	title: 'Resnet50 (variance of 10 runs)'
-});
-// make_chart('resnet50');
-// make_chart('densenet181');
+
+// make_chart({
+// 	name: 'basic',
+// 	data_file: 'data/basic.json',
+// 	rollup: d3.mean,
+// 	id: 'basic',
+// 	xlabel: 'Commit Time',
+// 	ylabel: 'Milliseconds',
+// 	title: 'Basic'
+// });
 
 // Make tooltips stay up so they can be clicked
 const old_hider = c3.chart.internal.fn.hideTooltip;
@@ -23,7 +24,7 @@ c3.chart.internal.fn.hideTooltip = function () { };
 
 
 function make_chart(options) {
-	d3.csv('data/' + options.name + ".csv").then(csv => {
+	d3.json(options.data_file).then(json => {
 		ignore_columns = {
 			'git_hash': true,
 			'benchmark_time': true,
@@ -32,52 +33,40 @@ function make_chart(options) {
 			'commit_time': true,
 		};
 
-		let column_names = [];
-		let columns = [];
-		let name_to_idx = {};
+		// commit hash -> { ... }
 
-		for (let key in csv[0]) {
-			name_to_idx[key] = column_names.length;
-			if (!ignore_columns[key]) {
-				column_names.push(key);
-				columns.push([key]);
-			}
-		}
+		// ['commit_time', a, b, c]
+		// ['metric 1', a_m1, b_m1, c_m1]
+		json.forEach(d => {
+			d.commit.time = new Date(d.commit.time)
+		})
 
-		// Get the x-column data
-		let x_data = d3.nest()
-			.key(d => d['git_hash'])
-			.rollup(d => {
-				return d[0].commit_time;
-			})
-			.entries(csv)
-		x_data = x_data.map(d => d.value);
+		// Get the data for each time step for the x-axis
+		let x_data = json.map(d => d.commit.time);
 		let x_column = ["commit_time"].concat(x_data);
-		let data = d3.nest().key(d => d['git_hash']).entries(csv);
 
-		// Get the mean of each column
-		for (let i = 0; i < column_names.length; i++) {
-			let name = column_names[i];
+		let all_series = [x_column];
 
-			let data = d3.nest()
-				.key(d => d['git_hash'])
-				.rollup(d => {
-					return options.rollup(name, d);
-				})
-				.entries(csv)
-			for (let j = 0; j < data.length; j++) {
-				columns[i].push(data[j].value);
-			}
+		let sample_entry = json[0].runs[0];
+		let fields = Object.keys(sample_entry).filter(d => d !== 'benchmark_run_at')
+		for (let i = 0; i < fields.length; i++) {
+			let series = [fields[i]];
+
+			json.forEach(d => {
+				let value = options.rollup(d.runs[0][fields[i]]);
+				series.push(value);
+			})
+
+			all_series.push(series);
 		}
-
-		columns.push(x_column);
 
 		var chart = c3.generate({
 			bindto: '#' + options.id,
 			data: {
 				x: 'commit_time',
-				xFormat: '%Y-%m-%d %H:%M:%S',
-				columns: columns
+				xFormat: '%Y-%m-%dT%H:%M:%S%z',
+				// xFormat: '%Y-%m-%d %H:%M:%S',
+				columns: all_series
 			},
 			axis: {
 				x: {
@@ -101,22 +90,24 @@ function make_chart(options) {
 			},
 			tooltip: {
 				contents: (d, defaultTitleFormat, defaultValueFormat, color) => {
-					let datum = data[d[0].index];
+					let datum = json[d[0].index];
+
 					let items = [
 						{
 							key: "Git Hash",
-							value: datum.key.substr(0, 10)
+							value: datum.commit.hash.substr(0, 10)
 						}
 					];
-					let keys = Object.keys(datum.values[0])
-						.filter(d => !(d in ignore_columns));
-					keys.forEach(key => {
-						let value = options.rollup(key, datum.values);
+
+					for (let i = 0; i < fields.length; i++) {
+						let value = options.rollup(datum.runs[0][fields[i]]);
+
 						items.push({
-							key: key,
-							value: +value.toFixed(2)
-						})
-					});
+							"key": fields[i],
+							"value": +value.toFixed(2)
+						});
+					}
+
 					const tooltip = document.createElement('div');
 					const table = d3.select(tooltip).append('table')
 						.classed('tooltip-table', true);
