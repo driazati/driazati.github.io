@@ -24,6 +24,7 @@
     <!-- <link href="https://mushiyo.github.io/pandoc-toc-sidebar/css/dashboard.css" rel="stylesheet"> -->
     <style type="text/css">code{white-space: pre;}</style>
     <style type="text/css">.sidebar ul{padding-left: 10px;}</style>
+
     <style type="text/css">
 a.sourceLine { display: inline-block; line-height: 1.25; }
 a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
@@ -129,26 +130,22 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
         
 <h1 id="torchscript-benchmarks">TorchScript Benchmarks</h1>
 <h2 id="resnet50">Resnet50</h2>
-<!-- {{test.html}} -->
-<p>
-hi
-</p>
 <div id="basic">
 
 </div>
-<div id="resnet50_mean">
-
-</div>
 <h1 id="reproducing-results">Reproducing Results</h1>
+<ol type="1">
+<li>Disable <code>chef</code></li>
+</ol>
 <h1 id="adding-a-benchmark">Adding a Benchmark</h1>
 <h2 id="generate-results">Generate Results</h2>
 <ol type="1">
 <li>Write your benchmark test in <a href=""><code>test.py</code></a>.</li>
-<li>Use the <a href=""><code>runner.py</code></a> to run the test and generate results. These will be saved to a <code>.csv</code> file and <code>git push</code>ed to the <code>driazati.github.io/torchscript/data</code> folder.</li>
+<li>Use the <a href=""><code>runner.py</code></a> to run the test and generate results. These will be saved to a <code>.json</code> file and <code>git push</code>ed to the <code>driazati.github.io/torchscript/data</code> folder.</li>
 </ol>
 <h2 id="display-results">Display Results</h2>
 <ol type="1">
-<li>Add your test to the <a href="https://github.com/driazati/driazati.github.io/blob/master/torchscript/README.md"><code>README.md</code></a>.</li>
+<li>Add your test to the <a href="https://github.com/driazati/driazati.github.io/blob/master/torchscript/README.md"><code>README.md</code></a> as a <code>&lt;div&gt;</code>.</li>
 <li><p>Add code to generate your chart in <a href="https://github.com/driazati/driazati.github.io/blob/master/torchscript/script.js"><code>script.js</code></a>.</p>
 <p>This should look something like:</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode javascript"><code class="sourceCode javascript"><a class="sourceLine" id="cb1-1" title="1"><span class="at">make_chart</span>(<span class="op">{</span></a>
@@ -161,6 +158,7 @@ hi
 <a class="sourceLine" id="cb1-8" title="8"><span class="op">}</span>)<span class="op">;</span></a></code></pre></div></li>
 <li><p>Run the <code>pandoc</code> make from the <code>driazati.github.io/torchscript</code> directory:</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb2-1" title="1"><span class="fu">make</span></a></code></pre></div></li>
+<li><p>View the changes by running <code>python -m http.server</code> and going to <code>localhost:8000</code> in your browser.</p></li>
 <li><p><code>git push</code> the changes</p></li>
 </ol>
         </div>

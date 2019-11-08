@@ -1,22 +1,20 @@
 make_chart({
-	name: 'basic',
 	data_file: 'data/resnet50.json',
-	rollup: d3.mean,
-	id: 'basic',
+	div_id: 'basic',
 	xlabel: 'Commit Time',
 	ylabel: 'Milliseconds',
-	title: 'Basic'
+	title: 'Basic',
+	rollups: [
+		{
+			"name": "mean",
+			"fn": d3.mean
+		},
+		{
+			"name": "variance",
+			"fn": d3.variance
+		}
+	]
 });
-
-// make_chart({
-// 	name: 'basic',
-// 	data_file: 'data/basic.json',
-// 	rollup: d3.mean,
-// 	id: 'basic',
-// 	xlabel: 'Commit Time',
-// 	ylabel: 'Milliseconds',
-// 	title: 'Basic'
-// });
 
 // Make tooltips stay up so they can be clicked
 const old_hider = c3.chart.internal.fn.hideTooltip;
@@ -25,13 +23,7 @@ c3.chart.internal.fn.hideTooltip = function () { };
 
 function make_chart(options) {
 	d3.json(options.data_file).then(json => {
-		ignore_columns = {
-			'git_hash': true,
-			'benchmark_time': true,
-			'commit_pr': true,
-			'run_number': true,
-			'commit_time': true,
-		};
+		let rollup = options.rollups[0];
 
 		// commit hash -> { ... }
 
@@ -53,7 +45,7 @@ function make_chart(options) {
 			let series = [fields[i]];
 
 			json.forEach(d => {
-				let value = options.rollup(d.runs[0][fields[i]]);
+				let value = rollup.fn(d.runs[0][fields[i]]);
 				series.push(value);
 			})
 
@@ -61,7 +53,7 @@ function make_chart(options) {
 		}
 
 		var chart = c3.generate({
-			bindto: '#' + options.id,
+			bindto: '#' + options.div_id,
 			data: {
 				x: 'commit_time',
 				xFormat: '%Y-%m-%dT%H:%M:%S%z',
@@ -100,7 +92,7 @@ function make_chart(options) {
 					];
 
 					for (let i = 0; i < fields.length; i++) {
-						let value = options.rollup(datum.runs[0][fields[i]]);
+						let value = rollup.fn(datum.runs[0][fields[i]]);
 
 						items.push({
 							"key": fields[i],
