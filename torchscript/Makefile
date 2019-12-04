@@ -1,2 +1,2 @@
 all:
-	pandoc README.md --template template/toc-sidebar.html --toc -B template/nav.html -o index.html
+	pandoc README.md --template templates/GitHub.html5 -o index.html
