@@ -11,6 +11,7 @@ make_chart({
             "fn": d3.median
         },
         {
+            // TODO: Nothing after the first is used
             "name": "variance",
             "fn": d3.variance
         }
